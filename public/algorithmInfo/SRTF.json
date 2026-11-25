@@ -1,0 +1,98 @@
+{
+  "algorithmName": "SRTF - Shortest Remaining Time First",
+  "definition": "SRTF is a preemptive scheduling algorithm that selects the process with the smallest remaining execution time.",
+  "working": {
+    "description": "At every scheduling decision point, the process with the shortest remaining time is selected. If a new process arrives with a shorter remaining time, the current process is preempted.",
+    "example": {
+      "processTable": {
+        "headers": ["Process", "Arrival Time (ms)", "Burst Time (ms)"],
+        "rows": [
+          ["P1", "0", "8"],
+          ["P2", "1", "4"],
+          ["P3", "2", "9"],
+          ["P4", "3", "5"]
+        ]
+      },
+      "ganttChartImage": "/images/srtf_gantt_chart.png",
+      "queueDiagramImage": "/images/fcfs_queue.png"
+    }
+  },
+  "dataStructures": {
+    "used": ["Min-Heap", "Array"],
+    "justification": "A Min-Heap allows efficient selection of the process with the shortest remaining time."
+  },
+  "daaStrategy": {
+    "type": "Greedy",
+    "justification": "SRTF always selects the process that will finish the soonest, aiming to minimize waiting time."
+  },
+  "efficiencyAnalysis": {
+    "analysisBasis": "Dynamic selection based on remaining time",
+    "timeComplexity": {
+      "notation": "O(n log n)",
+      "reasoning": "Each insertion and deletion in the Min-Heap takes O(log n) time."
+    },
+    "spaceComplexity": {
+      "notation": "O(n)",
+      "reasoning": "Storing process information for n processes."
+    }
+  },
+  "characteristics": [
+    { "feature": "Type", "description": "Preemptive" },
+    { "feature": "Strategy", "description": "Shortest Remaining Time First" },
+    { "feature": "Throughput", "description": "High; short processes are executed quickly" },
+    { "feature": "Turnaround Time", "description": "Minimized for short processes" },
+    { "feature": "Waiting Time", "description": "Can be high for long processes" }
+  ],
+  "performanceIssues": {
+    "title": "Starvation",
+    "description": "Long processes may starve if short processes keep arriving."
+  },
+  "advantages": [
+    "Minimizes average waiting time",
+    "Responsive to new short processes",
+    "Efficient CPU utilization"
+  ],
+  "disadvantages": [
+    "Requires knowledge of remaining burst times",
+    "High overhead due to frequent context switching",
+    "Possibility of starvation for long processes"
+  ],
+  "faq": [
+    {
+      "question": "How does SRTF differ from SJF?",
+      "answer": "SRTF is preemptive, while SJF is non-preemptive."
+    },
+    {
+      "question": "Is SRTF optimal?",
+      "answer": "Yes, it provides the minimum average waiting time for a given set of processes."
+    },
+    {
+      "question": "Can SRTF cause starvation?",
+      "answer": "Yes, long processes may starve if short processes keep arriving."
+    }
+  ],
+  "resources": [
+    {
+      "title": "GeeksforGeeks - Shortest Remaining Time First Scheduling",
+      "url": "https://www.geeksforgeeks.org/shortest-remaining-time-first-preemptive-sjf-scheduling-algorithm/"
+    },
+    {
+      "title": "YouTube - SRTF Scheduling Explained with Example",
+      "url": "https://www.youtube.com/watch?v=hoN7_VMzw_g"
+    }
+  ],
+  "performanceGraph": [
+  { "numProcesses": 5, "averageWaitingTime": 3.7, "averageCompletionTime": 8.2 },
+  { "numProcesses": 10, "averageWaitingTime": 7.5, "averageCompletionTime": 16.6 },
+  { "numProcesses": 50, "averageWaitingTime": 39.4, "averageCompletionTime": 84.8 },
+  { "numProcesses": 100, "averageWaitingTime": 80.4, "averageCompletionTime": 171.4 },
+  { "numProcesses": 200, "averageWaitingTime": 164.1, "averageCompletionTime": 346.5 },
+  { "numProcesses": 300, "averageWaitingTime": 249.2, "averageCompletionTime": 522.9 },
+  { "numProcesses": 400, "averageWaitingTime": 335.1, "averageCompletionTime": 700.2 },
+  { "numProcesses": 500, "averageWaitingTime": 421.7, "averageCompletionTime": 878.2 }
+],
+"graphAnalysis": {
+  "observation": "The increase in average waiting and completion times is relatively moderate and smoother compared to other algorithms.",
+  "reason": "SRTF is a preemptive version of SJF. It always runs the process with the least remaining time, leading to very efficient CPU usage. Preemption allows for dynamic reordering that avoids the convoy effect, especially benefiting shorter jobs. This results in consistently better scalability."
+}
+}

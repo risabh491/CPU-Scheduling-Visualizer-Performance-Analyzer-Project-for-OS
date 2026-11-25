@@ -1,0 +1,98 @@
+{
+  "algorithmName": "SJF - Shortest Job First",
+  "definition": "SJF is a non-preemptive scheduling algorithm that selects the process with the smallest CPU burst time from the ready queue.",
+  "working": {
+    "description": "Processes are scheduled in ascending order of their CPU burst times. The process with the shortest burst time is executed next.",
+    "example": {
+      "processTable": {
+        "headers": ["Process", "Arrival Time (ms)", "Burst Time (ms)"],
+        "rows": [
+          ["P1", "0", "6"],
+          ["P2", "1", "8"],
+          ["P3", "2", "7"],
+          ["P4", "3", "3"]
+        ]
+      },
+      "ganttChartImage": "/images/sjf_gantt_chart.png",
+      "queueDiagramImage": "/images/fcfs_queue.png"
+    }
+  },
+  "dataStructures": {
+    "used": ["Array", "Min-Heap"],
+    "justification": "A Min-Heap efficiently selects the process with the shortest burst time."
+  },
+  "daaStrategy": {
+    "type": "Greedy",
+    "justification": "SJF selects the process with the shortest burst time, aiming to minimize average waiting time."
+  },
+  "efficiencyAnalysis": {
+    "analysisBasis": "Sorting processes based on burst time",
+    "timeComplexity": {
+      "notation": "O(n log n)",
+      "reasoning": "Sorting the processes requires O(n log n) time."
+    },
+    "spaceComplexity": {
+      "notation": "O(n)",
+      "reasoning": "Storing process information for n processes."
+    }
+  },
+  "characteristics": [
+    { "feature": "Type", "description": "Non-preemptive" },
+    { "feature": "Strategy", "description": "Shortest Job First" },
+    { "feature": "Throughput", "description": "High; short processes are executed quickly" },
+    { "feature": "Turnaround Time", "description": "Minimized for short processes" },
+    { "feature": "Waiting Time", "description": "Can be high for long processes" }
+  ],
+  "performanceIssues": {
+    "title": "Starvation",
+    "description": "Long processes may starve if short processes keep arriving."
+  },
+  "advantages": [
+    "Minimizes average waiting time",
+    "Efficient for batch processing",
+    "Simple implementation"
+  ],
+  "disadvantages": [
+    "Requires knowledge of burst times in advance",
+    "Not suitable for time-sharing systems",
+    "Possibility of starvation for long processes"
+  ],
+  "faq": [
+    {
+      "question": "How does SJF handle processes with the same burst time?",
+      "answer": "It uses FCFS (First-Come, First-Served) as a tie-breaker."
+    },
+    {
+      "question": "Is SJF optimal?",
+      "answer": "Yes, it provides the minimum average waiting time for a given set of processes."
+    },
+    {
+      "question": "Can SJF be preemptive?",
+      "answer": "Yes, the preemptive version is called Shortest Remaining Time First (SRTF)."
+    }
+  ],
+  "resources": [
+    {
+      "title": "GeeksforGeeks - Shortest Job First Scheduling",
+      "url": "https://www.geeksforgeeks.org/shortest-job-first-or-sjf-cpu-scheduling/"
+    },
+    {
+      "title": "YouTube - SJF Scheduling Explained with Example",
+      "url": "https://www.youtube.com/watch?v=VCIVXPoiLpU"
+    }
+  ],
+  "performanceGraph": [
+  { "numProcesses": 5, "averageWaitingTime": 4.9, "averageCompletionTime": 9.3 },
+  { "numProcesses": 10, "averageWaitingTime": 10.1, "averageCompletionTime": 18.8 },
+  { "numProcesses": 50, "averageWaitingTime": 54.7, "averageCompletionTime": 97.3 },
+  { "numProcesses": 100, "averageWaitingTime": 113.3, "averageCompletionTime": 197.4 },
+  { "numProcesses": 200, "averageWaitingTime": 234.6, "averageCompletionTime": 400.2 },
+  { "numProcesses": 300, "averageWaitingTime": 359.1, "averageCompletionTime": 605.3 },
+  { "numProcesses": 400, "averageWaitingTime": 485.7, "averageCompletionTime": 811.7 },
+  { "numProcesses": 500, "averageWaitingTime": 614.0, "averageCompletionTime": 1019.1 }
+],
+"graphAnalysis": {
+  "observation": "Average waiting and completion times grow slowly with more processes, showing more efficient behavior than FCFS.",
+  "reason": "By selecting the shortest job next, SJF minimizes total waiting time in many cases. However, as more jobs accumulate, the need for sorting or comparing burst times still results in growing execution time, though with a much slower slope than FCFS."
+}
+}
